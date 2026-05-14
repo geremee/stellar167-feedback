@@ -9,6 +9,7 @@ const StellarFeedback = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [serviceType, setServiceType] = useState('consulting');
+    const [assistedBy, setAssistedBy] = useState('');
     const [kindnessRating, setKindnessRating] = useState(0);
     const [serviceRating, setServiceRating] = useState(0);
     const [comments, setComments] = useState('');
@@ -70,6 +71,7 @@ const StellarFeedback = () => {
                         service_rating: serviceRating,
                         comments: comments.trim() || null,
                         created_at: new Date().toISOString()
+                        assisted_by: assistedBy.trim() || null,
                     }
                 ])
                 .select();
@@ -100,6 +102,7 @@ const StellarFeedback = () => {
                 setServiceRating(0);
                 setComments('');
                 setSubmitted(false);
+                setAssistedBy('');
             }, 2000);
             
         } catch (err) {
@@ -199,7 +202,16 @@ const StellarFeedback = () => {
                             </select>
                         </div>
                         
-                        <div className="double-rating">
+                        <div className="input-group">
+                            <label>Staff / Person who assisted you</label>
+                            <input
+                                type="text"
+                                placeholder="e.g., Ms. Angela Cruz"
+                                value={assistedBy}
+                                onChange={(e) => setAssistedBy(e.target.value)}
+                            />
+                        </div>
+                                                <div className="double-rating">
                             {renderStars(kindnessRating, setKindnessRating, 'KINDNESS & HOSPITALITY')}
                             {renderStars(serviceRating, setServiceRating, 'SERVICE EXCELLENCE')}
                         </div>
